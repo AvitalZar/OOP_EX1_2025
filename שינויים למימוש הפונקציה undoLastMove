@@ -1,0 +1,13 @@
+שיניתי את המחלקות:
+Move, Position, GameLogic
+in Move:
+  .ועשיתי שהוא יסיר את המיקום מרשימת המיקומים הריקים ,public שתהיה undoMoves תיקנתי את הפונקציה
+in Position:
+  לפני שהיא הופכת את הדסקיות שצריך. locateDisc בתוך allastFlips המחלקה מעדכנת את הרשימה  locateDisc בפונקציה
+.זה רשימה שמתעדכנת אחרי כל צעד ומתעדת את כל הדסקיות שהתהפכו בצעד allastFlips
+
+in GameLogic:
+public הפך ל undoMove in Moveלפי זה ש undoLastMove תיקנתי את 
+ועשיתי שהיא משנה את התור.
+
+(ומעכשיו אני כותבת באנגלית כי זה נורא לכתוב כאן חצי חצי)
