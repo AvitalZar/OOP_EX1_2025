@@ -1,0 +1,12 @@
+classes changed:
+GameLogic
+Position
+Move
+Disc
+BombDisc
+SimpleDisc
+UnflippableDisc.
+
+
+I added printings in the classes GameLogic, Move, and Position.
+For print flips documentations, I added "position" fild in Disc, because flippedDisc return disc and we need to print position (and it was easier than fix flippedDisc).
