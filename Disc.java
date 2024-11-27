@@ -18,7 +18,7 @@ public interface Disc {
      */
     void setOwner(Player player);
 
-    //void flip(GameLogic game);
+    void flip(GameLogic game);
 
     /**
      * Get the type of the disc.

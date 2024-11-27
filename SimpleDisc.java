@@ -16,11 +16,11 @@ public class SimpleDisc implements Disc{
         owner = player;
     }
 
-    /**@Override
+    @Override
     public void flip(GameLogic game){
         if(owner.isPlayerOne) setOwner(game.getSecondPlayer());
         else setOwner(game.getFirstPlayer());
-    }*/
+    }
 
     @Override
     public String getType() {

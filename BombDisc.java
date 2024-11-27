@@ -13,11 +13,11 @@ public class BombDisc implements Disc{
     public void setOwner(Player player) {
         owner = player;
     }
-    /**@Override
+    @Override
     public void flip(GameLogic game){
         if(owner.isPlayerOne) setOwner(game.getSecondPlayer());
         if(!owner.isPlayerOne) setOwner(game.getFirstPlayer());
-    }*/
+    }
 
     @Override
     public String getType() {

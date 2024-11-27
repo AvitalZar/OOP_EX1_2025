@@ -35,13 +35,16 @@ public class Move {
         }
     }*/
 
-    public void undoMove(){//המחלקה צריכה לשמור את כל המשחק! אפשר לחזור כמה שרוצים
-        pose.removeDisc();
-        allMoves.removeLast();
-        List<Disc> toReflipp = Position.allastFlips.getLast();
-        Position.allastFlips.removeLast();
-        for(Disc value: toReflipp){
-            value.setOwner(gameLogic.notCurrentPlayer());
+    public static void undoMove(GameLogic gameLogic){//המחלקה צריכה לשמור את כל המשחק! אפשר לחזור כמה שרוצים
+        if(!allMoves.isEmpty()) {
+            allMoves.getLast().position().removeDisc();
+            Position.notLocated.add(allMoves.getLast().position());
+            allMoves.removeLast();
+            List<Disc> toReflipp = Position.allastFlips.getLast();
+            Position.allastFlips.removeLast();
+            for (Disc value : toReflipp) {
+                value.flip(gameLogic);
+            }
         }
     }
 

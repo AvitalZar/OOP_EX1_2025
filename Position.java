@@ -36,6 +36,8 @@ public class Position {
     }
     public boolean locateDisc(Disc newDisc){
         if(getDiscAtPosition()==null){
+            List<Disc> lastFlips = new ArrayList<>(flippedDisc(newDisc.getOwner()));
+            allastFlips.add(lastFlips);
             flip(newDisc.getOwner());
             board[row][column].discAtPosition = newDisc;
             discAtPosition=newDisc;
@@ -52,6 +54,7 @@ public class Position {
         int boardSize = game.getBoardSize();
         board = new Position[boardSize][boardSize];
         resetNotLocated();
+        allastFlips.clear();
         int m = boardSize/2-1;
         board[m][m] = new Position(m,m);
         board[m][m].locateDisc(new SimpleDisc(game.getFirstPlayer()));
@@ -86,7 +89,6 @@ public class Position {
                 ans.addAll(discSequence(p,cur.row()-row(),cur.col()-col()));
             }
         }
-        System.out.println(ans.size());
         return ans;
     }
 
@@ -110,6 +112,13 @@ public class Position {
         return p.row()==this.row()&&p.col()==this.col()&&p.getDiscAtPosition()==this.getDiscAtPosition();
 
     }
+
+    /**
+     * help function for flippedDisc.
+     * find the enemy's disc around this position.
+     * @param p - this player, for knowing which player is the enemy.
+     * @return list of positions that contains enemy's discs.
+     */
     private List<Position> aroundEnemyPositions(Player p) {
         ArrayList<Position> ans = new ArrayList<>();
         for (int r = row() - 1; r <= row() + 1; r++) {
@@ -128,6 +137,7 @@ public class Position {
     }
 
     /**
+     * helper function for flippedDiscs.
      * calculates enemy-discs sequence and return it if it finished with player's disc
      * @param rowDir row direction - 1 for down, -1 for up
      * @param colDir column direction - 1 for right, -1 for left

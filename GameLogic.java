@@ -11,7 +11,6 @@ public class GameLogic implements PlayableLogic{
         boolean ans = a.locateDisc(disc);
         if(ans){
             lastMove = new Move(this,a,disc);
-            Position.allastFlips.add(a.flippedDisc(currentPlayer()));
             changeTurn();
             //lastMove.flip();
         }
@@ -34,7 +33,9 @@ public class GameLogic implements PlayableLogic{
         ArrayList<Position> ans = new ArrayList<>();
         for(int i = 0;i<Position.notLocated.size();i++){//עובר על כל המיקומים הריקים בלוח
                 Position optional = Position.notLocated.get(i);
-                if(!optional.flippedDisc(currentPlayer()).isEmpty()) ans.add(optional);
+                if(!optional.flippedDisc(currentPlayer()).isEmpty()){
+                    ans.add(optional);
+                }
 
         }
         return ans;
@@ -87,10 +88,8 @@ public class GameLogic implements PlayableLogic{
     @Override
     public void undoLastMove() {
         if(first.isHuman()&&second.isHuman()){
-            if(lastMove!=null) {
-                lastMove.undoMove();
-
-            }
+            Move.undoMove(this);
+            changeTurn();
         }
     }
 
