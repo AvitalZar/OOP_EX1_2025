@@ -35,7 +35,7 @@ public class Move {
         }
     }*/
 
-    public static void undoMove(GameLogic gameLogic){//המחלקה צריכה לשמור את כל המשחק! אפשר לחזור כמה שרוצים
+    public static void undoMove(GameLogic gameLogic){
         if(!allMoves.isEmpty()) {
             allMoves.getLast().position().removeDisc();
             Position.notLocated.add(allMoves.getLast().position());
