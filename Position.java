@@ -13,7 +13,7 @@ public class Position {
     public static Position[][] board = new Position[8][8];
     private Disc discAtPosition;
     public static List<Position> notLocated = new ArrayList<>();//List of all the not-disced positions.
-    public static List<List<Disc>> allastFlips;
+    public static List<List<Disc>> allastFlips = new ArrayList<>();
 
 
     public Position (int row,int column){
