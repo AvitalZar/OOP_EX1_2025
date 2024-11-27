@@ -2,6 +2,7 @@
 public class SimpleDisc implements Disc{
 
     private Player owner;
+    private Position placedIn;
 
     public SimpleDisc (Player current){
         owner=current;
@@ -20,6 +21,16 @@ public class SimpleDisc implements Disc{
     public void flip(GameLogic game){
         if(owner.isPlayerOne) setOwner(game.getSecondPlayer());
         else setOwner(game.getFirstPlayer());
+    }
+
+    @Override
+    public void place(Position p) {
+        placedIn = p;
+    }
+
+    @Override
+    public Position position() {
+        return placedIn;
     }
 
     @Override

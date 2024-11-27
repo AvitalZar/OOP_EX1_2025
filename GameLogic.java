@@ -4,15 +4,20 @@ import java.util.List;
 
 public class GameLogic implements PlayableLogic{
     private int whoseTurn = 0;
-    private Move lastMove;
+
     @Override
     public boolean locate_disc(Position a, Disc disc) {
         if(!ValidMoves().contains(a)) return false;
+
+        List<Disc> flippes = a.flippedDisc(currentPlayer());
+
         boolean ans = a.locateDisc(disc);
         if(ans){
-            lastMove = new Move(this,a,disc);
+            new Move(this,a,disc);//בשביל לעדכן את allMoves ולמקם את הדסקית
+            System.out.println("Player "+(whoseTurn+1)+" placed a "+disc.getType()+" in "+a);
+            a.printPositions(flippes);
             changeTurn();
-            //lastMove.flip();
+
         }
 
         return ans;
@@ -75,19 +80,25 @@ public class GameLogic implements PlayableLogic{
     @Override
     public boolean isGameFinished() {
         boolean ans = ValidMoves().isEmpty();
-        if(ans) notCurrentPlayer().addWin();
+        if(ans){
+            Player p = winner();
+            if(p!=null)
+                p.addWin();
+        }
         return ans;
     }
 
     @Override
     public void reset() {
         Position.resetPositions(this);
+        Move.resetAllMoves();
         whoseTurn=0;
     }
 
     @Override
     public void undoLastMove() {
         if(first.isHuman()&&second.isHuman()){
+            System.out.println("Undoing last move:");
             Move.undoMove(this);
             changeTurn();
         }
@@ -104,6 +115,31 @@ public class GameLogic implements PlayableLogic{
     public Player notCurrentPlayer(){
         if(whoseTurn==0) return getSecondPlayer();
         return getFirstPlayer();
+    }
+
+    private Player winner(){
+        int player1Disc = 0;
+        int player2Disc = 0;
+        for(int i = 0;i<getBoardSize();i++){
+            for(int j = 0;j<getBoardSize();j++){
+                Position here = new Position(i,j);
+                Disc disc = getDiscAtPosition(here);
+                if(disc!=null){
+                    if(disc.getOwner().isPlayerOne()) player1Disc++;
+                    else player2Disc++;
+                }
+            }
+        }
+        if(player1Disc<player2Disc){
+            System.out.println("Player 2 wins with "+player2Disc+" discs! Player 1 had "+player1Disc+" discs.");
+            return getSecondPlayer();
+        }
+        if(player2Disc<player1Disc){
+            System.out.println("Player 1 wins with "+player1Disc+" discs! Player 2 had "+player2Disc+" discs.");
+            return getFirstPlayer();
+        }
+
+        return null;
     }
 
 }

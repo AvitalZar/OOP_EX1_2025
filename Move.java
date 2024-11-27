@@ -13,6 +13,7 @@ public class Move {
         this.pose = position;
         this.gameLogic = (GameLogic) game;
         allMoves.add(this);
+        disc.place(position);
 
     }
 
@@ -23,7 +24,9 @@ public class Move {
         return disc;
     }
 
-
+    public static void resetAllMoves(){
+        allMoves = new ArrayList<>();
+    }
     /**
      * flip all the discs in "flipped disc" - the List of
      * the discs will be flip if the move would be done.
@@ -36,6 +39,7 @@ public class Move {
     }*/
 
     public static void undoMove(GameLogic gameLogic){
+        if(allMoves.isEmpty()) System.out.println("No previous move available to undo.");
         if(!allMoves.isEmpty()) {
             allMoves.getLast().position().removeDisc();
             Position.notLocated.add(allMoves.getLast().position());
@@ -44,8 +48,10 @@ public class Move {
             Position.allastFlips.removeLast();
             for (Disc value : toReflipp) {
                 value.flip(gameLogic);
+                System.out.println("Undo: flipping back "+value.getType()+" in "+value.position());
             }
         }
+        System.out.println();
     }
 
 

@@ -38,6 +38,7 @@ public class Position {
         if(getDiscAtPosition()==null){
             List<Disc> lastFlips = new ArrayList<>(flippedDisc(newDisc.getOwner()));
             allastFlips.add(lastFlips);
+
             flip(newDisc.getOwner());
             board[row][column].discAtPosition = newDisc;
             discAtPosition=newDisc;
@@ -58,15 +59,19 @@ public class Position {
         int m = boardSize/2-1;
         board[m][m] = new Position(m,m);
         board[m][m].locateDisc(new SimpleDisc(game.getFirstPlayer()));
+        board[m][m].getDiscAtPosition().place(board[m][m]);
 
         board[m+1][m+1] = new Position(m+1,m+1);
         board[m+1][m+1].locateDisc(new SimpleDisc(game.getFirstPlayer()));
+        board[m+1][m+1].getDiscAtPosition().place(board[m+1][m+1]);
 
         board[m][m+1] = new Position(m,m+1);
         board[m][m+1].locateDisc(new SimpleDisc(game.getSecondPlayer()));
+        board[m][m+1].getDiscAtPosition().place(board[m][m+1]);
 
         board[m+1][m] = new Position(m+1,m);
         board[m+1][m].locateDisc(new SimpleDisc(game.getSecondPlayer()));
+        board[m+1][m].getDiscAtPosition().place(board[m+1][m]);
 
     }
 
@@ -100,6 +105,7 @@ public class Position {
     }
 
     public void removeDisc(){
+        System.out.println("Undo: removing "+getDiscAtPosition().getType()+" from "+ this);
         board[row()][col()].discAtPosition = null;
     }
 
@@ -171,7 +177,18 @@ public class Position {
 
     @Override
     public String toString(){
-        return row()+","+col();
+        return "("+row()+","+col()+")";
+    }
+
+    public void printPositions(List<Disc> printMe){
+        if(!printMe.isEmpty()) {
+            for (Disc disc : printMe) {
+                if (disc.getOwner().isPlayerOne) System.out.print("Player 1 ");
+                else System.out.print("Player 2 ");
+                System.out.println("flipped the " + disc.getType() + " in " + disc.position());
+            }
+            System.out.println();
+        }
     }
 
 }

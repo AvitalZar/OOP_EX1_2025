@@ -1,5 +1,6 @@
 public class BombDisc implements Disc{
     private Player owner;
+    private Position placedIn;
 
     public BombDisc(Player current){
         owner = current;
@@ -17,6 +18,15 @@ public class BombDisc implements Disc{
     public void flip(GameLogic game){
         if(owner.isPlayerOne) setOwner(game.getSecondPlayer());
         if(!owner.isPlayerOne) setOwner(game.getFirstPlayer());
+    }
+    @Override
+    public void place(Position p){
+        placedIn = p;
+    }
+
+    @Override
+    public Position position() {
+        return placedIn;
     }
 
     @Override

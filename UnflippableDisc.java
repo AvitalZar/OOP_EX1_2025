@@ -1,7 +1,8 @@
 
 public class UnflippableDisc implements Disc{
 
-    private Player owner;
+    private final Player owner;
+    private Position placedIn;
 
     public UnflippableDisc (Player currentPlayer){
         owner = currentPlayer;
@@ -18,6 +19,16 @@ public class UnflippableDisc implements Disc{
     @Override
     public void flip(GameLogic game){
         System.out.println("Unflippable disc declare: Don't EVER try to flip me again.");
+    }
+
+    @Override
+    public void place(Position p) {
+        placedIn = p;
+    }
+
+    @Override
+    public Position position() {
+        return placedIn;
     }
 
     @Override
